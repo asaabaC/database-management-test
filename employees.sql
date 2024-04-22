@@ -1,3 +1,4 @@
+Create Employees table
 CREATE TABLE Employees (
     id INT PRIMARY KEY,
     name VARCHAR(256),
@@ -5,8 +6,21 @@ CREATE TABLE Employees (
     department_id INT,
     hire_date DATE
 );
---part a--
 
+Create Departments table
+CREATE TABLE Departments (
+    id INT PRIMARY KEY,
+    name VARCHAR(256)
+);
+
+-- Insert sample data into Departments table
+INSERT INTO Departments (id, name)
+VALUES
+    (1, 'HR'),
+    (2, 'Finance'),
+    (3, 'IT');
+
+-- part a
 WITH RankedEmployees AS (
     SELECT 
         e.name AS Employee_name,
@@ -16,7 +30,7 @@ WITH RankedEmployees AS (
     FROM 
         Employees e
     INNER JOIN 
-        departments d ON e.department_id = d.id
+        Departments d ON e.department_id = d.id
 )
 SELECT 
     Employee_name,
@@ -27,8 +41,7 @@ FROM
 WHERE 
     salary_rank = 1;
 	
-	-- part b --
-	
+-- part b
 WITH RankedEmployees AS (
     SELECT 
         e.name AS Employee_name,
@@ -38,7 +51,7 @@ WITH RankedEmployees AS (
     FROM 
         Employees e
     INNER JOIN 
-        departments d ON e.department_id = d.id
+        Departments d ON e.department_id = d.id
 )
 SELECT 
     Employee_name,
@@ -49,9 +62,7 @@ FROM
 WHERE 
     hire_date_rank = 1;
 	
-	
-	
-	-- part c --
+-- part c
 SELECT 
     e.name AS Employee_name,
     e.salary AS Employee_salary
@@ -68,11 +79,3 @@ INNER JOIN (
 ) AS avg_salaries ON e.department_id = avg_salaries.department_id
 WHERE 
     e.salary > avg_salaries.avg_salary;
-	
-	
-	
-	
-
-
-
-
